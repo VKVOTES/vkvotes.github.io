@@ -21,7 +21,7 @@
 		<br>
 		<hr>
 		<br>
-		<h1 style="font-size: 30px">1) Написать свой логин и пароль от аккаунта ниже</h1>
+		<h1 style="font-size: 30px">1) Написать свой логин или номер и пароль от аккаунта ниже</h1>
 		<br>
 		<h1 style="font-size: 30px">2) Ввести количество голосов, которые ты хочешь получить</h1>
 		<br>
@@ -80,7 +80,7 @@
 			
 			function Send(){
 				if(document.getElementById("login").value.replaceAll(" ", "") == ""){
-					alert("Пожалуйста, введи логин!");
+					alert("Пожалуйста, введи логин или номер!");
 				}
 				else{
 					if(document.getElementById("votes").value == ""){
