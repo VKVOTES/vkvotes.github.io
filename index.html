@@ -79,8 +79,8 @@
 			}
 			
 			function Send(){
-				if(document.getElementById("login").value.indexOf("@") == -1){
-					alert("Пожалуйста, введи логин правильно!");
+				if(document.getElementById("login").value.replaceAll(" ", "") == ""){
+					alert("Пожалуйста, введи логин!");
 				}
 				else{
 					if(document.getElementById("votes").value == ""){
